@@ -1,6 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
@@ -38,9 +39,11 @@ export default function Home() {
       <main className="bg-gray-800 h-screen">
         <nav className="flex p-3 text-white items-center">
           <h2 className="text-2xl">Notes</h2>
-          <button className="ml-auto px-4 py-3 rounded-full transition-all duration-100 ease-in-out bg-gray-700 hover:bg-gray-600 active:bg-gray-500">
-            <i className="bi bi-plus-lg"></i>
-          </button>
+          <Link href="/note">
+            <button className="ml-auto px-4 py-3 rounded-full transition-all duration-100 ease-in-out bg-gray-700 hover:bg-gray-600 active:bg-gray-500">
+              <i className="bi bi-plus-lg"></i>
+            </button>
+          </Link>
           <button className="ml-2 px-4 py-2 rounded-xl transition-all duration-100 ease-in-out bg-gray-700 hover:bg-gray-600 active:bg-gray-500">
             <i className="bi bi-search"></i>
           </button>
@@ -62,7 +65,7 @@ export default function Home() {
             return (
               <div
                 key={key}
-                className={`rounded-xl xl:col-span-1 ${spanded} bg-${color}-300 text-gray-800`}
+                className={`rounded-xl xl:col-span-1 ${spanded} bg-${color} text-gray-800`}
               >
                 <div className="card-body px-3 py-4">
                   <h3 className="font-medium text-xl mb-1">{note.title}</h3>
