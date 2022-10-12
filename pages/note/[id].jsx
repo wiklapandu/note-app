@@ -23,11 +23,12 @@ export default function Note() {
         if (res.data.status == "success") {
           setNote(res.data.note);
         } else {
-          console.log("error");
+          router.push("/");
           return;
         }
       });
-  }, [cookies, id, note]);
+    console.log("running one times");
+  }, [cookies, id, router]);
 
   return (
     <div>

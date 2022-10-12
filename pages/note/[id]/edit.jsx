@@ -25,7 +25,7 @@ export default function Note() {
           setTitle(note.title);
           setDesc(note.desc);
         } else {
-          console.log("error");
+          router.push("/");
           return;
         }
       });

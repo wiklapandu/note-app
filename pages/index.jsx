@@ -10,8 +10,21 @@ import { useRouter } from "next/router";
 export default function Home() {
   const [cookies, setCookies, removeCookie] = useCookies(["token", "message"]);
   const [notes, setNotes] = useState([]);
+  const [user, setUser] = useState({});
   const router = useRouter();
   useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/user", {
+        headers: {
+          Authorization: cookies.token,
+        },
+      })
+      .then((res) => {
+        if (res.data.status == "success") {
+          setUser(res.data.user);
+        }
+      });
+
     axios
       .get("http://localhost:8080/api/note", {
         headers: {
@@ -44,9 +57,6 @@ export default function Home() {
               <i className="bi bi-plus-lg"></i>
             </button>
           </Link>
-          <button className="ml-2 px-4 py-2 rounded-xl transition-all duration-100 ease-in-out bg-gray-700 hover:bg-gray-600 active:bg-gray-500">
-            <i className="bi bi-search"></i>
-          </button>
           {cookies.token ? (
             <button
               onClick={() => {
@@ -65,6 +75,18 @@ export default function Home() {
             </Link>
           )}
         </nav>
+        {user.name ? (
+          <div className="p-3">
+            <div className="text-white">
+              <h3 className="text-3xl">
+                Selamat Datang {user.name.split(" ")[0]}
+              </h3>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
         {cookies.message ? (
           <div className="p-3">
             <div className="grid grid-cols-3">

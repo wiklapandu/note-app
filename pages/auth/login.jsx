@@ -28,7 +28,9 @@ export default function Home() {
 
       <main className="bg-gray-800 h-screen">
         <nav className="flex p-3 text-white items-center">
-          <h2 className="text-2xl">Notes</h2>
+          <Link href="/">
+            <h2 className="text-2xl cursor-pointer">Notes</h2>
+          </Link>
         </nav>
         <div className="p-3 grid xl:grid-cols-3 w-full">
           <div className="xl:block hidden"></div>
