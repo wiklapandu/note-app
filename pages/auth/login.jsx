@@ -7,11 +7,9 @@ import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-require("dotenv").config();
-
-const API = process.env.API_URL;
 
 export default function Home() {
+  const API = process.env.API_URL;
   const [email, setEmail] = useState("");
   const [error, setError] = useState();
   const [password, setPassword] = useState("");

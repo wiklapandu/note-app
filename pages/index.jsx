@@ -7,16 +7,14 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
-require("dotenv").config();
-
-const API = process.env.API_URL;
-
 export default function Home() {
+  const API = process.env.API_URL;
   const [cookies, setCookies, removeCookie] = useCookies(["token", "message"]);
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
   const router = useRouter();
   useEffect(() => {
+    console.log(API);
     axios
       .get(API + "/user", {
         headers: {
@@ -40,7 +38,7 @@ export default function Home() {
           setNotes(res.data.notes);
         }
       });
-  }, [cookies]);
+  }, [cookies, API]);
   return (
     <div>
       <Head>

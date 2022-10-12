@@ -5,11 +5,9 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
-require("dotenv").config();
-
-const API = process.env.API_URL;
 
 export default function Note() {
+  const API = process.env.API_URL;
   const [cookies, setCookies] = useCookies(["token"]);
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
