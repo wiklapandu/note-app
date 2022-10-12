@@ -2,12 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-red{
-  @apply bg-red-300
+.bg-red {
+  @apply bg-red-300;
 }
-.bg-green{
-  @apply bg-green-300
+.bg-green {
+  @apply bg-green-300;
 }
-.bg-blue{
-  @apply bg-blue-300
+.bg-blue {
+  @apply bg-blue-300;
+}
+
+/* Button */
+
+.btn {
+  @apply px-4 py-2 rounded transition-all duration-100 ease-in-out cursor-pointer;
+}
+
+.btn.btn-green {
+  @apply bg-green-500 hover:bg-green-300 duration-100 text-white;
+}
+
+.btn.btn-gray {
+  @apply bg-gray-700 hover:bg-gray-600 active:bg-gray-500;
+}
+
+.btn.btn-circle {
+  @apply px-4 py-3 rounded-full;
 }

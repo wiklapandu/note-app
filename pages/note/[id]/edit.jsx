@@ -1,7 +1,7 @@
 import axios from "axios";
 import Head from "next/head";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
@@ -10,11 +10,31 @@ export default function Note() {
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
   const router = useRouter();
+  const { id } = router.query;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/note/" + id, {
+        headers: {
+          Authorization: cookies.token,
+        },
+      })
+      .then((res) => {
+        if (res.data.status == "success") {
+          const note = res.data.note;
+          setTitle(note.title);
+          setDesc(note.desc);
+        } else {
+          console.log("error");
+          return;
+        }
+      });
+  }, [cookies, id]);
 
   return (
     <div>
       <Head>
-        <title>Add | Notes</title>
+        <title>Edit Note | Notes</title>
         <meta name="description" content="Notes App" />
         <link rel="icon" href="/favicon.ico" />
         <link
@@ -37,8 +57,8 @@ export default function Note() {
           <button
             onClick={() => {
               axios
-                .post(
-                  "http://localhost:8080/api/note",
+                .put(
+                  "http://localhost:8080/api/note/" + id,
                   {
                     title,
                     desc,
@@ -84,9 +104,8 @@ export default function Note() {
               cols="30"
               rows="15"
               onChange={(e) => setDesc(e.target.value)}
-            >
-              {desc}
-            </textarea>
+              value={desc}
+            ></textarea>
           </div>
         </div>
       </main>

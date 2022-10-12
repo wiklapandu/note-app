@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -94,10 +95,20 @@ export default function Home() {
                       }
                     });
                 }}
-                className="px-4 py-2 rounded bg-green-500 hover:bg-green-300 duration-100 text-white text-center"
+                className="btn btn-green"
               >
                 Login
               </button>
+            </div>
+            <div className="flex">
+              <span className="text-white text-center mx-auto">
+                Belum punya akun?
+                <Link href="/auth/register">
+                  <a className="ml-2 text-green-400 hover:text-green-300">
+                    Registrasi
+                  </a>
+                </Link>
+              </span>
             </div>
           </div>
         </div>
