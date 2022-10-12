@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
+require("dotenv").config();
+
+const API = process.env.API_URL;
+
 export default function Note() {
   const [cookies, setCookies] = useCookies(["token"]);
   const [title, setTitle] = useState();
@@ -14,7 +18,7 @@ export default function Note() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/note/" + id, {
+      .get(API + "/note/" + id, {
         headers: {
           Authorization: cookies.token,
         },
@@ -58,7 +62,7 @@ export default function Note() {
             onClick={() => {
               axios
                 .put(
-                  "http://localhost:8080/api/note/" + id,
+                  API + "/note/" + id,
                   {
                     title,
                     desc,

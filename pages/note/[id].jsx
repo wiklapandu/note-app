@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
+require("dotenv").config();
+
+const API = process.env.API_URL;
+
 export default function Note() {
   const [cookies, setCookies] = useCookies(["token", "message"]);
   const [note, setNote] = useState({});
@@ -14,7 +18,7 @@ export default function Note() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/note/" + id, {
+      .get(API + "/note/" + id, {
         headers: {
           Authorization: cookies.token,
         },
@@ -62,7 +66,7 @@ export default function Note() {
             className="ml-2 btn btn-circle btn-gray"
             onClick={() => {
               axios
-                .delete("http://localhost:8080/api/note/" + id, {
+                .delete(API + "/note/" + id, {
                   headers: {
                     Authorization: cookies.token,
                   },

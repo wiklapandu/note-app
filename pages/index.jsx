@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
+require("dotenv").config();
+
+const API = process.env.API_URL;
+
 export default function Home() {
   const [cookies, setCookies, removeCookie] = useCookies(["token", "message"]);
   const [notes, setNotes] = useState([]);
@@ -14,7 +18,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/user", {
+      .get(API + "/user", {
         headers: {
           Authorization: cookies.token,
         },
@@ -26,7 +30,7 @@ export default function Home() {
       });
 
     axios
-      .get("http://localhost:8080/api/note", {
+      .get(API + "/note", {
         headers: {
           Authorization: cookies.token,
         },

@@ -5,6 +5,10 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
+require("dotenv").config();
+
+const API = process.env.API_URL;
+
 export default function Note() {
   const [cookies, setCookies] = useCookies(["token"]);
   const [title, setTitle] = useState();
@@ -38,7 +42,7 @@ export default function Note() {
             onClick={() => {
               axios
                 .post(
-                  "http://localhost:8080/api/note",
+                  API + "/note",
                   {
                     title,
                     desc,

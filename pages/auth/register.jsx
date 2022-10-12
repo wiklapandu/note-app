@@ -7,6 +7,10 @@ import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+require("dotenv").config();
+
+const API = process.env.API_URL;
+
 export default function Register() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -96,7 +100,7 @@ export default function Register() {
                 type="submit"
                 onClick={() => {
                   axios
-                    .post("http://localhost:8080/api/auth/register", {
+                    .post(API + "/auth/register", {
                       name,
                       email,
                       password,
