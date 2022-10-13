@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
-
+import NotFound from "../../../components/notfound";
 
 export default function Note() {
   const API = process.env.API_URL;
@@ -32,6 +32,10 @@ export default function Note() {
         }
       });
   }, [cookies, id]);
+
+  if (!cookies.token) {
+    return <NotFound />;
+  }
 
   return (
     <div>

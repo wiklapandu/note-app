@@ -7,37 +7,11 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
-export default function Home() {
-  const API = process.env.API_URL;
+export default function NotFound() {
   const [cookies, setCookies, removeCookie] = useCookies(["token", "message"]);
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState({});
   const router = useRouter();
-  useEffect(() => {
-    axios
-      .get(API + "/user", {
-        headers: {
-          Authorization: cookies.token,
-        },
-      })
-      .then((res) => {
-        if (res.data.status == "success") {
-          setUser(res.data.user);
-        }
-      });
-
-    axios
-      .get(API + "/note", {
-        headers: {
-          Authorization: cookies.token,
-        },
-      })
-      .then((res) => {
-        if (res.data.status == "success") {
-          setNotes(res.data.notes);
-        }
-      });
-  }, [cookies, API]);
   return (
     <div>
       <Head>
@@ -116,7 +90,7 @@ export default function Home() {
             <div className="xl:col-span-3 col-span-2 text-center text-white">
               <Link href="/auth/login">
                 <h3 className="cursor-pointer text-3xl">
-                  Not Found <br />
+                  Page Not Found <br />
                   Login first, Click this to Login
                 </h3>
               </Link>
@@ -124,36 +98,6 @@ export default function Home() {
           ) : (
             <></>
           )}
-          {notes.map((note, key) => {
-            let spanded = (key + 1) % 3 == 0 ? "col-span-2" : "";
-            let color = "red";
-            if ((key + 1) % 3 == 0) {
-              color = "blue";
-            } else if ((key + 1) % 2 == 0) {
-              color = "green";
-            }
-            const date = moment(parseInt(note.updated_at));
-
-            return (
-              <div
-                key={key}
-                className={`rounded-xl xl:col-span-1 ${spanded} bg-${color} text-gray-800`}
-              >
-                <div className="card-body px-3 py-4">
-                  <Link href={"/note/" + note.id}>
-                    <h3 className="font-medium text-xl mb-1 cursor-pointer">
-                      {note.title}
-                    </h3>
-                  </Link>
-                  <div className="flex">
-                    <span className="text-gray-600 text-lg font-medium">
-                      {date.format("MMM D, YYYY")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </main>
 

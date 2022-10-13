@@ -1,10 +1,13 @@
 import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
+
+import NotFound from "../../components/notfound";
 
 export default function Note() {
   const API = process.env.API_URL;
@@ -30,6 +33,10 @@ export default function Note() {
       });
     console.log("running one times");
   }, [cookies, id, router]);
+
+  if (!cookies.token) {
+    return <NotFound />;
+  }
 
   return (
     <div>

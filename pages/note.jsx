@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
 
+import NotFound from "../components/notfound";
 
 export default function Note() {
   const API = process.env.API_URL;
@@ -12,7 +13,9 @@ export default function Note() {
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
   const router = useRouter();
-
+  if (!cookies.token) {
+    return <NotFound />;
+  }
   return (
     <div>
       <Head>
