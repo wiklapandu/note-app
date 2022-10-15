@@ -11,7 +11,7 @@ export default function Register() {
   const API = process.env.API_URL;
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [error, setError] = useState();
+  const [errors, setErrors] = useState({});
   const [password, setPassword] = useState("");
   const [cookies, setCookies] = useCookies(["token"]);
   const router = useRouter();
@@ -38,10 +38,10 @@ export default function Register() {
           <div className="xl:block hidden"></div>
           <div>
             <h5 className="text-4xl text-center text-white mb-3">Registrasi</h5>
-            {error ? (
+            {errors && errors.main ? (
               <div className="mb-3">
                 <div className="rounded bg-red-400 text-red-800 p-3">
-                  {error}
+                  {errors.main.msg}
                 </div>
               </div>
             ) : (
@@ -53,14 +53,21 @@ export default function Register() {
               </label>
               <input
                 type="text"
-                className="p-2 px-3 rounded w-full"
+                className={
+                  "form-control " + (errors && errors.name ? "is-invalid" : "")
+                }
                 placeholder="Type name"
                 value={name}
                 onChange={(e) => {
-                  setError("");
+                  setErrors({});
                   setName(e.target.value);
                 }}
               />
+              {errors && errors.name ? (
+                <span className="invalid-feedback">{errors.name.msg}</span>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="email" className="block text-white mb-1">
@@ -68,14 +75,21 @@ export default function Register() {
               </label>
               <input
                 type="text"
-                className="p-2 px-3 rounded w-full"
+                className={
+                  "form-control " + (errors && errors.email ? "is-invalid" : "")
+                }
                 placeholder="Type email"
                 value={email}
                 onChange={(e) => {
-                  setError("");
+                  setErrors({});
                   setEmail(e.target.value);
                 }}
               />
+              {errors && errors.email ? (
+                <span className="invalid-feedback">{errors.email.msg}</span>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="block text-white mb-1">
@@ -85,12 +99,20 @@ export default function Register() {
                 type="password"
                 value={password}
                 onChange={(e) => {
-                  setError("");
+                  setErrors({});
                   setPassword(e.target.value);
                 }}
                 placeholder="Type Password"
-                className="p-2 px-3 rounded w-full"
+                className={
+                  "form-control " +
+                  (errors && errors.password ? "is-invalid" : "")
+                }
               />
+              {errors && errors.password ? (
+                <span className="invalid-feedback">{errors.password.msg}</span>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="mb-3 grid">
               <button
@@ -104,7 +126,7 @@ export default function Register() {
                     })
                     .then(function (res) {
                       if (res.data.status == "fail") {
-                        setError(res.data.error);
+                        setErrors(res.data.errors);
                       } else if (res.data.status == "success") {
                         setCookies("token", res.data.token, {
                           path: "/",

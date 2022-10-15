@@ -29,3 +29,17 @@
 .btn.btn-circle {
   @apply px-4 py-3 rounded-full;
 }
+
+/* FORM */
+
+.form-control {
+  @apply p-2 px-3 rounded w-full border-white border-2;
+}
+
+.form-control.is-invalid {
+  @apply border-red-600 outline-red-600 outline-2;
+}
+
+span.invalid-feedback {
+  @apply text-red-600;
+}
