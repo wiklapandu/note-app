@@ -52,7 +52,7 @@ export default function Note() {
         />
       </Head>
 
-      <main className="bg-gray-800 min-h-screen">
+      <main className={`bg-${note.color} min-h-screen`}>
         <nav className="flex p-3 text-white items-center">
           <button
             onClick={() => {
