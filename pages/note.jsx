@@ -41,26 +41,31 @@ export default function Note() {
           <h2 className="ml-2 text-2xl">Notes</h2>
           <button
             onClick={() => {
-              axios
-                .post(
-                  API + "/note",
-                  {
-                    title,
-                    desc,
-                  },
-                  {
-                    headers: {
-                      Authorization: cookies.token,
+              if (cookies.token) {
+                axios
+                  .post(
+                    API + "/note",
+                    {
+                      title,
+                      desc,
                     },
-                  }
-                )
-                .then((res) => {
-                  if (res.data.status == "success") {
-                    setTitle("");
-                    setDesc("");
-                    router.push("/");
-                  }
-                });
+                    {
+                      headers: {
+                        Authorization: cookies.token,
+                      },
+                    }
+                  )
+                  .then((res) => {
+                    if (res.data.status == "success") {
+                      setTitle("");
+                      setDesc("");
+                      router.push("/");
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err.response.data);
+                  });
+              }
             }}
             className="ml-auto px-4 py-3 rounded-full transition-all duration-100 ease-in-out bg-gray-700 hover:bg-gray-600 active:bg-gray-500"
           >

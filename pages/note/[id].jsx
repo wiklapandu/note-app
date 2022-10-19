@@ -30,8 +30,10 @@ export default function Note() {
           router.push("/");
           return;
         }
+      }).catch(error => {
+        setCookies("message", error.response.data.error)
+        router.push("/");
       });
-    console.log("running one times");
   }, [cookies, id, router]);
 
   if (!cookies.token) {

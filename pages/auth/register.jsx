@@ -136,6 +136,9 @@ export default function Register() {
                         setPassword("");
                         router.push("/");
                       }
+                    })
+                    .catch((err) => {
+                      setErrors(err.response.data.errors);
                     });
                 }}
                 className="btn btn-green"

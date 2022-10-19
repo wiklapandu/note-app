@@ -14,29 +14,39 @@ export default function Home() {
   const [user, setUser] = useState({});
   const router = useRouter();
   useEffect(() => {
-    axios
-      .get(API + "/user", {
-        headers: {
-          Authorization: cookies.token,
-        },
-      })
-      .then((res) => {
-        if (res.data.status == "success") {
-          setUser(res.data.user);
-        }
-      });
+    if(cookies.token){
+      axios
+        .get(API + "/user", {
+          headers: {
+            'Authorization': 'Bearer ' + cookies.token,
+          },
+        })
+        .then((res) => {
+          console.log(res)
+          if (res.data.status == "success") {
+            setUser(res.data.user);
+          }
+        }).catch(err => {
+          // const errors = JSON.parse(JSON.stringify(err));
+          console.log(err.response.data)
+        });
 
-    axios
-      .get(API + "/note", {
-        headers: {
-          Authorization: cookies.token,
-        },
-      })
-      .then((res) => {
-        if (res.data.status == "success") {
-          setNotes(res.data.notes);
-        }
-      });
+        axios
+          .get(API + "/note", {
+            headers: {
+              Authorization: cookies.token,
+            },
+          })
+          .then((res) => {
+            if (res.data.status == "success") {
+              setNotes(res.data.notes);
+            }
+          }).catch(err => {
+            // const errors = JSON.parse(JSON.stringify(err));
+            console.log(err.response.data)
+          });
+    }
+
   }, [cookies, API]);
   return (
     <div>
@@ -100,7 +110,9 @@ export default function Home() {
                   {cookies.message}{" "}
                   <span
                     className="ml-auto text-blue-800 hover:text-blue-500 cursor-pointer"
-                    onClick={() => {}}
+                    onClick={() => {
+                      removeCookie("message")
+                    }}
                   >
                     <i className="bi bi-x text-2xl"></i>
                   </span>

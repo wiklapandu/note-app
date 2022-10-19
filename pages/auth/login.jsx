@@ -111,6 +111,9 @@ export default function Home() {
                         setPassword("");
                         router.push("/");
                       }
+                    }).catch((error)=>{
+                      console.log(error.response);
+                      setErrors(error.response.data.errors);
                     });
                 }}
                 className="btn btn-green"
