@@ -2,11 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* components */
+.bullet{
+  content: "";
+  width: 30px; height: 30px;
+  border-radius: 100%;
+  @apply cursor-pointer border-2 border-white hover:border-green-600;
+}
+
+.bullet.default{
+  @apply bg-gray-300 hover:bg-gray-400;
+}
+
+.bullet.red{
+  @apply bg-red-300 hover:bg-red-400;
+}
+
+.bullet.green{
+  @apply bg-green-300 hover:bg-green-400;
+}
+
+.bullet.blue{
+  @apply bg-blue-300 hover:bg-blue-400;
+}
+
+.bullet.active{
+  @apply border-green-600;
+}
+
+/* utilities */
 .bg-red {
   @apply bg-red-300;
 }
+.bg-default {
+  @apply bg-gray-300;
+}
 .bg-green {
-  @apply bg-green-300;
+  @apply bg-green-400;
 }
 .bg-blue {
   @apply bg-blue-300;

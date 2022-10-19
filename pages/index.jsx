@@ -138,18 +138,12 @@ export default function Home() {
           )}
           {notes.map((note, key) => {
             let spanded = (key + 1) % 3 == 0 ? "col-span-2" : "";
-            let color = "red";
-            if ((key + 1) % 3 == 0) {
-              color = "blue";
-            } else if ((key + 1) % 2 == 0) {
-              color = "green";
-            }
             const date = moment(parseInt(note.updated_at));
 
             return (
               <div
                 key={key}
-                className={`rounded-xl xl:col-span-1 ${spanded} bg-${color} text-gray-800`}
+                className={`rounded-xl xl:col-span-1 ${spanded} bg-${note.color} text-gray-800`}
               >
                 <div className="card-body px-3 py-4">
                   <Link href={"/note/" + note.id}>
