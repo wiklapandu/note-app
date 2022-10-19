@@ -10,8 +10,9 @@ import NotFound from "../components/notfound";
 export default function Note() {
   const API = process.env.API_URL;
   const [cookies, setCookies] = useCookies(["token"]);
-  const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [color, setColor] = useState("default");
   const router = useRouter();
   if (!cookies.token) {
     return <NotFound />;
@@ -28,7 +29,7 @@ export default function Note() {
         />
       </Head>
 
-      <main className="bg-gray-800 min-h-screen">
+      <main className={`bg-${color} min-h-screen`}>
         <nav className="flex p-3 text-white items-center">
           <button
             onClick={() => {
@@ -79,17 +80,39 @@ export default function Note() {
               name="title"
               id="title"
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full font-bold mb-3 bg-transparent min-h-min text-white outline-none text-2xl"
+              className="w-full font-bold mb-3 bg-transparent min-h-min text-white placeholder:text-gray-100 outline-none text-2xl"
               placeholder="Type Title"
               value={title}
             />
             <hr />
           </div>
+          <div className="flex">
+            <div
+              className={
+                "bullet default" + (color === "default" ? " active" : "")
+              }
+              onClick={()=>{
+                setColor("default")
+              }}
+            ></div>
+            <div className={"bullet red ml-1" + (color === "red" ? " active" : "")} 
+              onClick={()=>{
+                setColor("red")
+              }}></div>
+            <div className={"bullet green ml-1" + (color === "green" ? " active" : "")} 
+              onClick={()=>{
+                setColor("green")
+              }}></div>
+            <div className={"bullet blue ml-1" + (color === "blue" ? " active" : "")} 
+              onClick={()=>{
+                setColor("blue")
+              }}></div>
+          </div>
           <div>
             <textarea
               name="desc"
               id="desc"
-              className="w-full mb-3 bg-transparent min-h-min text-white outline-none text-lg"
+              className="w-full mb-3 bg-transparent min-h-min text-white placeholder:text-gray-100 outline-none text-lg"
               placeholder="Type Description"
               cols="30"
               rows="15"
