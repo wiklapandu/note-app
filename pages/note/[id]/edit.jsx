@@ -11,6 +11,7 @@ export default function Note() {
   const [cookies, setCookies] = useCookies(["token"]);
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
+  const [color, setColor] = useState();
   const router = useRouter();
   const { id } = router.query;
 
@@ -26,6 +27,7 @@ export default function Note() {
           const note = res.data.note;
           setTitle(note.title);
           setDesc(note.desc);
+          setColor(note.color);
         } else {
           router.push("/");
           return;
@@ -49,7 +51,7 @@ export default function Note() {
         />
       </Head>
 
-      <main className="bg-gray-800 min-h-screen">
+      <main className={`bg-${color} min-h-screen`}>
         <nav className="flex p-3 text-white items-center">
           <button
             onClick={() => {
@@ -67,6 +69,7 @@ export default function Note() {
                   API + "/note/" + id,
                   {
                     title,
+                    color,
                     desc,
                   },
                   {
@@ -100,6 +103,28 @@ export default function Note() {
               value={title}
             />
             <hr />
+          </div>
+          <div className="flex">
+            <div
+              className={
+                "bullet default" + (color === "default" ? " active" : "")
+              }
+              onClick={()=>{
+                setColor("default")
+              }}
+            ></div>
+            <div className={"bullet red ml-1" + (color === "red" ? " active" : "")} 
+              onClick={()=>{
+                setColor("red")
+              }}></div>
+            <div className={"bullet green ml-1" + (color === "green" ? " active" : "")} 
+              onClick={()=>{
+                setColor("green")
+              }}></div>
+            <div className={"bullet blue ml-1" + (color === "blue" ? " active" : "")} 
+              onClick={()=>{
+                setColor("blue")
+              }}></div>
           </div>
           <div>
             <textarea

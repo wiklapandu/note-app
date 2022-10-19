@@ -49,6 +49,7 @@ export default function Note() {
                     {
                       title,
                       desc,
+                      color,
                     },
                     {
                       headers: {
